@@ -77,7 +77,8 @@ As mentioned above, part of the parameters will be in a param table and the the 
 Create a table in your Azure SQL DB using the below script
 
 
-*```CREATE TABLE dbo.ParamFormRecogniser(
+```
+CREATE TABLE dbo.ParamFormRecogniser(
 	form_description varchar(50) NULL,
   training_container_name varchar(50) NOT NULL,
 	training_blob_root_folder varchar(50) NULL,
@@ -87,15 +88,17 @@ Create a table in your Azure SQL DB using the below script
 	model_id varchar(50) NULL,
 	file_type varchar(50) NULL
 ) ON PRIMARY
-GO```*
-
+GO
+```
 
 For the first run, the model id is set to -1. This value is updated using a stored procedure.
 
-*CREATE PROCEDURE [dbo].[update_model_id] ( @form_batch_group_id  varchar(50),@model_id varchar(50))
+```
+CREATE PROCEDURE [dbo].[update_model_id] ( @form_batch_group_id  varchar(50),@model_id varchar(50))
 AS
 BEGIN 
 	UPDATE [dbo].[ParamFormRecogniser]   
 		SET [model_id] = @model_id  
 	WHERE form_batch_group_id =@form_batch_group_id
- END*
+ END
+```
