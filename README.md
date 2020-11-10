@@ -70,3 +70,23 @@ Fill out the form with the usual information for the creation of an azure resour
 
 ![alt text](https://github.com/issaghaba/FormRecognizer/blob/main/images/CreateFormRecognizer2.png)
 
+As mentioned above, part of the parameters will be in a param table and the the rest in Azure Key Vault.
+
+## Create a parametrization table.
+
+Create a table in your Azure SQL DB using the below script
+
+_
+CREATE TABLE dbo.ParamFormRecogniser(
+	form_description varchar(50) NULL,
+  training_container_name varchar(50) NOT NULL,
+	training_blob_root_folder varchar(50) NULL,
+	scoring_container_name varchar(50) NOT NULL,
+	scoring_input_blob_folder varchar(50) NOT NULL,
+	scoring_output_blob_folder varchar(50) NOT NULL,
+	model_id varchar(50) NULL,
+	file_type varchar(50) NULL
+) ON PRIMARY
+GO
+ _
+
