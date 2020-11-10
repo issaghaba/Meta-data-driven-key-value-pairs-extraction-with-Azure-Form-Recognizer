@@ -27,3 +27,12 @@ For each form type, Data engineers or data scientists will populate the param ta
 * CognitiveServiceEndpoint: The endpoint of the form recognizer cognitive service. This value will be stored in Azure Key Vault for security reasons.
 * CognitiveServiceSubscriptionKey: The access key of the cognitive service. This value will be stored in Azure Key Vault for security reasons. The below screenshot shows how to get the key and endpoint of the cognitive service
 
+
+![alt text](https://github.com/issaghaba/FormRecognizer/blob/main/images/CognitiveService.png)
+
+* StorageAccountName: The storage account where the training dataset and forms we want to extract the key value pairs from are stored. The two storage accounts can be different. The training dataset must be in the same container for all form types. They can be in different folders.
+* StorageAccountSasKey : the shared access signature of the storage account
+The below screen shows the key vault after you create all the secrets
+
+![alt text](https://github.com/issaghaba/FormRecognizer/blob/main/images/KeyVault.png)
+
