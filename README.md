@@ -138,6 +138,11 @@ To reference the secrets in the Azure Key Vault we created above, you will need 
 This is where the magic happens. First, we’ll create a notebook to called Settings to assign the values in the Param table to variables. We could have two settings files, one for the training and another one for the inference but, in this blog, we’ll only have one for simplify the process. The values will be passed as parameters by Azure Data Factory. We’ll detail the approach in the orchestration section. We’ll also assign variables values read from the secrets the Key Vault.
 To create the Settings notebook, click on the workspace button, in the new tab, click on the dropdown list and select create and then notebook.
 
+![alt text](https://github.com/issaghaba/FormRecognizer/blob/main/images/adbnotebook1.png)
 
+In the popup, enter the name you want to give to the notebook and select Python as default language. If you have a Databricks cluster running you can select it otherwise, leave it empty for now. We’ll create one later. Click Create.
 
+![alt text](https://github.com/issaghaba/FormRecognizer/blob/main/images/adbnotebook2.png)
+
+In the first cell, we’ll retrieve the parameters passed by Azure Data Factory
 
