@@ -98,6 +98,4 @@ BEGIN
 	UPDATE [dbo].[ParamFormRecogniser]   
 		SET [model_id] = @model_id  
 	WHERE form_batch_group_id =@form_batch_group_id
- 
-END
-*
+ END*
