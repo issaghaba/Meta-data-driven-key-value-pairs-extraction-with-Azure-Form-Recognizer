@@ -92,10 +92,12 @@ GO*
 
 For the first run, the model id is set to -1. This value is updated using a stored procedure.
 
-*AS
+*CREATE PROCEDURE [dbo].[update_model_id] ( @form_batch_group_id  varchar(50),@model_id varchar(50))
+AS
 BEGIN 
 	UPDATE [dbo].[ParamFormRecogniser]   
 		SET [model_id] = @model_id  
 	WHERE form_batch_group_id =@form_batch_group_id
  
-END*
+END
+*
