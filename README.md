@@ -422,3 +422,47 @@ file.write(str(resp_json))
 file.close()
  
    ```
+# Training and scoring orchestration with Azure Data Factory
+At this point, the only remaining part is the Data Factory for the orchestration of the training and the scoring of cognitive service model. The steps to create a Data Factory are described [here](https://docs.microsoft.com/en-us/azure/data-factory/quickstart-create-data-factory-portal#create-a-data-factory).
+After you create the ADF resource, you will need to create three pipelines: one for the training and two for the scoring. We’ll explain later why we need two pipelines for the scoring.
+## Training pipeline
+
+The first activity in the training pipeline is a Lookup to read and return the values in the parametrization table in the Azure SQL database.  As all the training datasets will be in the same storage account and container, potentially different folders, we’ll keep the default value First row only attribute in the lookup activity settings. 
+For each type of form to train the model against, we’ll train the model using all the files in the training_blob_root_folder.  
+
+![alt text](https://github.com/issaghaba/FormRecognizer/blob/main/images/ParamTable.png)
+
+
+![alt text](https://github.com/issaghaba/FormRecognizer/blob/main/images/TrainingPipeline.png)
+
+The stored procedure takes two parameters : model_id and the form_batch_group_id. The code to return the model id from the databricks notebook is dbutils.notebook.exit(model_id) and the code to read the code in stored procedure activity in data factory is @activity('GetParametersFromMetadaTable').output.firstRow.form_batch_group_id
+
+## Scoring pipelines
+
+To extract the key value pairs, we’ll scan all the folders in the parametrization table and, for each folder, we’ll extract the key-value pairs of all the files in it. As of today, ADF does not support nested ForEach Loops. The workaround is to create two pipelines. The first will do the Lookup from the parametrization table and pass the folders list as parameter to the second pipeline. 
+
+![alt text](https://github.com/issaghaba/FormRecognizer/blob/main/images/ScoringPipeline1.png)
+
+![alt text](https://github.com/issaghaba/FormRecognizer/blob/main/images/ScoringPipeline2.png)
+
+The second pipeline will use a GetMeta activity to get the list of the files in the folder and pass it as a parameter to the scoring Databricks notebook we created earlier.
+
+![alt text](https://github.com/issaghaba/FormRecognizer/blob/main/images/ScoringPipeline3.png)
+
+![alt text](https://github.com/issaghaba/FormRecognizer/blob/main/images/ScoringPipeline4.png)
+
+# Degree of parallelism
+
+In both the training and scoring pipelines, specify the degree of parallelism to process multiple forms simultaneously. 
+
+To set the degree of parallelism in the ADF pipeline : 
+* select the Foreach activity
+* uncheck the “sequential box
+* set the degree of parallelism in the batch count text box.
+
+![alt text](https://github.com/issaghaba/FormRecognizer/blob/main/images/DegreOfParallelism.png)
+
+We recommend a maximum batch count of 15 for the scoring. 
+
+Congratulations! You can now digitize all your backlog of form and run some analytics on top of it. 
+
