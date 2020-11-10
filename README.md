@@ -20,3 +20,10 @@ For each form type, Data engineers or data scientists will populate the param ta
 
 
 ![alt text](https://github.com/issaghaba/FormRecognizer/blob/main/images/HighLevelArchitecture.png)
+
+# Below is the list of parameters:
+
+## In Azure Key Vault
+* CognitiveServiceEndpoint: The endpoint of the form recognizer cognitive service. This value will be stored in Azure Key Vault for security reasons.
+* CognitiveServiceSubscriptionKey: The access key of the cognitive service. This value will be stored in Azure Key Vault for security reasons. The below screenshot shows how to get the key and endpoint of the cognitive service
+
