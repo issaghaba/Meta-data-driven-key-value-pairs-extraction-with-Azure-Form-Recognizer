@@ -124,5 +124,20 @@ Enter the name of the parameter and its value and click create. Repeat this proc
 
 ![alt text](https://github.com/issaghaba/FormRecognizer/blob/main/images/CreateKeyVault4.png)
 
+# Train the model for different type of forms
+## Create a notebook in Databricks
+
+Create an Azure Databricks service the same way you created the Cognitive service and the key vault. 
+Navigate to the Databricks after it has been created and launch the workspace. 
+
+### Create a secret scope backed by Azure Key Vault
+To reference the secrets in the Azure Key Vault we created above, you will need to create a secret scope in Azure Databricks. You can create a secret scope back by Azure Key Vault or backed by Azure Databricks. In the post, we used a secret backed by Azure Key Vault. The steps to create a secret scope are detailed [here](https://docs.microsoft.com/en-us/azure/databricks/security/secrets/secret-scopes#--create-an-azure-key-vault-backed-secret-scope).
+
+### Create Databricks notebooks
+
+This is where the magic happens. First, we’ll create a notebook to called Settings to assign the values in the Param table to variables. We could have two settings files, one for the training and another one for the inference but, in this blog, we’ll only have one for simplify the process. The values will be passed as parameters by Azure Data Factory. We’ll detail the approach in the orchestration section. We’ll also assign variables values read from the secrets the Key Vault.
+To create the Settings notebook, click on the workspace button, in the new tab, click on the dropdown list and select create and then notebook.
+
+
 
 
