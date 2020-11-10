@@ -102,3 +102,27 @@ BEGIN
 	WHERE form_batch_group_id =@form_batch_group_id
  END
 ```
+## Create a key Vault
+Create an Azure key vault to host the sensitive parameters: StorageAccountSasKey, StorageAccountName, CognitiveServiceEndpoint and CognitiveserviceSubscriptionKey.
+Navigate to the Azure portal: portal.azure.com. 
+In the top left menu, select create a resource. 
+
+
+![alt text](https://github.com/issaghaba/FormRecognizer/blob/main/images/CreateKeyVault1.png)
+
+In the marketplace menu, enter Key Vault. In the new page, enter click Create.
+Fill out the form with the usual information for the creation of an azure resource and click Create
+
+![alt text](https://github.com/issaghaba/FormRecognizer/blob/main/images/CreateKeyVault2.png)
+
+Navigate to the Key Vault resource after it is created and, in the settings section select secrets to add the parameters.
+
+![alt text](https://github.com/issaghaba/FormRecognizer/blob/main/images/CreateKeyVault3.png)
+
+A new window will appear, select Generate/import.
+Enter the name of the parameter and its value and click create. Repeat this process for the SAS URL and the endpoint.
+
+![alt text](https://github.com/issaghaba/FormRecognizer/blob/main/images/CreateKeyVault4.png)
+
+
+
