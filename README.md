@@ -36,3 +36,37 @@ The below screen shows the key vault after you create all the secrets
 
 ![alt text](https://github.com/issaghaba/FormRecognizer/blob/main/images/KeyVault.png)
 
+## In the parametrization table
+
+* form_description: This field is not required as part of the training of the model the inference. It just to provide a description of the type of forms we are training the model for (example client A forms, Hotel B forms,...)
+* training_container_name: This is the storage account container name where we store the training dataset. It can be the same as scoring_container_name
+* training_blob_root_folder: The folder in the storage account where we’ll store the files for the training of the model. 
+* scoring_container_name: This is the storage account container name where we store the files we want to extract the key value pairs from.  It can be the same as the training_container_name
+* scoring_input_blob_folder: The folder in the storage account where we’ll store the files to extract key-value pair from.
+model_id: The identify of model we want to retrain. For the first run, the value must be set to -1 to create a new custom model to train. The training notebook will return the newly created model id to the data factory and, using a stored procedure activity, we’ll update the meta data table with in the Azure SQL database.
+Whenever you had a new form type, you need to reset the model id to -1 and retrain the model.
+* file_type: The supported types are application/pdf, image/jpeg, image/png, image/tif. 
+* form_batch_group_id : Over time, you might have multiple forms type you train against different models. The form_batch_group_id will allow you to specify all the form types that have been training using a specific model. 
+
+# Pre-requisites
+
+To implement this solution, you will need to create the below services: 
+* Form Recognizer resource 
+* Azure Data Factory
+* Azure Databricks
+* Azure SQL single database
+* Azure Key Vault
+
+
+## Create a Form Recognizer resource from the portal
+
+Navigate to the Azure portal: portal.azure.com
+In the top left menu, select create a resource.
+
+![alt text](https://github.com/issaghaba/FormRecognizer/blob/main/images/CreateFormRecognizer1.png)
+
+In the marketplace menu, enter Form Recognizer. The cognitive service creation page will appear. Click Create
+Fill out the form with the usual information for the creation of an azure resource and click Create.
+
+![alt text](https://github.com/issaghaba/FormRecognizer/blob/main/images/CreateFormRecognizer2.png)
+
